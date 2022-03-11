@@ -26,14 +26,11 @@ mod tests {
         ].as_ref();
 
         let mut ptr = test_data;
-        for _ in 0..10 {
-            let ((rest, _), record) = MyRecord::from_bytes((&ptr, 0)).expect("Failed to parse recordasdads");
+        while let Ok(r) = MyRecord::from_bytes((&ptr, 0)) {
+            let ((rest, _), record) = r;
             ptr = rest;
             println!("{:#X?}", record);
         }
-
-        // TODO Could I do a version of the loop above using `while let`?
-
     }
 
     #[test]
